@@ -5,7 +5,9 @@ from datetime import datetime, timedelta
 from passlib.context import CryptContext
 import jwt
 
-from .. import schemas, models, database
+import schemas
+import models
+import database
 
 router = APIRouter()
 

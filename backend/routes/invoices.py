@@ -4,7 +4,9 @@ from typing import List
 from sqlalchemy import desc, func
 from datetime import datetime
 
-from .. import schemas, models, database
+import schemas
+import models
+import database
 
 router = APIRouter()
 
