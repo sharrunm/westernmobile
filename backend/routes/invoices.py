@@ -22,8 +22,8 @@ def create_invoice(invoice: schemas.InvoiceCreate, db: Session = Depends(databas
 
     gen_inv_number = f"WM-{next_num}"
     
-    # Billing calculation including Spare Parts Cost
-    subtotal = invoice.service_rate + (invoice.parts_cost or 0.0)
+    # Billing calculation - ONLY Service Charge (service_rate) is billed to the customer
+    subtotal = invoice.service_rate
     tax_amount = subtotal * (invoice.tax_rate / 100.0)
     total_amount = subtotal + tax_amount
 
@@ -99,6 +99,21 @@ def get_stats(db: Session = Depends(database.get_db)):
         models.Invoice.repair_status != "Completed"
     ).count()
 
+    # Profit calculations: (service_rate - parts_cost) for paid invoices
+    monthly_profit = db.query(func.sum(func.coalesce(models.Invoice.service_rate, 0.0) - func.coalesce(models.Invoice.parts_cost, 0.0))).filter(
+        models.Invoice.payment_status == "Paid",
+        models.Invoice.created_at >= start_of_month
+    ).scalar() or 0.0
+
+    total_profit = db.query(func.sum(func.coalesce(models.Invoice.service_rate, 0.0) - func.coalesce(models.Invoice.parts_cost, 0.0))).filter(
+        models.Invoice.payment_status == "Paid"
+    ).scalar() or 0.0
+
+    today_profit = db.query(func.sum(func.coalesce(models.Invoice.service_rate, 0.0) - func.coalesce(models.Invoice.parts_cost, 0.0))).filter(
+        models.Invoice.payment_status == "Paid",
+        models.Invoice.created_at >= start_of_today
+    ).scalar() or 0.0
+
     return {
         "monthly_income": monthly_income,
         "total_income": total_income,
@@ -107,7 +122,10 @@ def get_stats(db: Session = Depends(database.get_db)):
         "repairs_completed_today": repairs_completed_today,
         "total_income_today": total_income_today,
         "delivered_today": delivered_today,
-        "pending_jobs": pending_jobs
+        "pending_jobs": pending_jobs,
+        "monthly_profit": monthly_profit,
+        "total_profit": total_profit,
+        "today_profit": today_profit
     }
 
 @router.patch("/{invoice_id}/status", response_model=schemas.InvoiceOut)

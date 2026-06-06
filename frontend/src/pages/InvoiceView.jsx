@@ -87,7 +87,7 @@ export default function InvoiceView() {
     if (loading) return <div style={{ padding: '40px' }}>Loading Repair Ticket...</div>;
     if (!invoice) return <div style={{ padding: '40px', color: 'var(--danger)' }}>Repair Ticket Not Found</div>;
 
-    const subtotal = invoice.service_rate + (invoice.parts_cost || 0.0);
+    const subtotal = invoice.service_rate;
     const taxAmount = subtotal * (invoice.tax_rate / 100);
     const warrantyExpiry = new Date(new Date(invoice.created_at).getTime() + (invoice.warranty_days * 24 * 60 * 60 * 1000));
 
@@ -202,20 +202,17 @@ export default function InvoiceView() {
                             <thead>
                                 <tr style={{ background: '#f8fafc', color: '#475569', borderBottom: '2px solid #e2e8f0', textAlign: 'left', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: 700 }}>
                                     <th style={{ padding: '14px 12px' }}>Service / Repair Job</th>
-                                    <th style={{ padding: '14px 12px' }}>Device Physical Problem</th>
-                                    {printMode === 'Invoice' && <th style={{ padding: '14px 12px', textAlign: 'right' }}>Charge Breakdown</th>}
+                                    {printMode === 'Invoice' && <th style={{ padding: '14px 12px', textAlign: 'right' }}>Service Charge</th>}
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr style={{ borderBottom: '1px solid #e2e8f0', verticalAlign: 'top' }}>
                                     <td style={{ padding: '20px 12px', color: '#0f172a', fontWeight: 600 }}>{invoice.service_type}</td>
-                                    <td style={{ padding: '20px 12px', color: '#475569', maxWidth: '300px' }}>{invoice.problem_desc}</td>
                                     
                                     {/* Print Mode Billing Charge Columns */}
                                     {printMode === 'Invoice' && (
-                                        <td style={{ padding: '20px 12px', textAlign: 'right', color: '#0f172a' }}>
-                                            <div style={{ fontSize: '0.9rem', color: '#64748b' }}>Labor: {shopSettings.currencySymbol}{invoice.service_rate.toFixed(2)}</div>
-                                            <div style={{ fontSize: '0.9rem', color: '#64748b' }}>Parts: {shopSettings.currencySymbol}{(invoice.parts_cost || 0).toFixed(2)}</div>
+                                        <td style={{ padding: '20px 12px', textAlign: 'right', color: '#0f172a', fontWeight: 600 }}>
+                                            {shopSettings.currencySymbol}{invoice.service_rate.toFixed(2)}
                                         </td>
                                     )}
                                 </tr>

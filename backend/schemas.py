@@ -26,7 +26,7 @@ class InvoiceCreate(BaseModel):
     imei: Optional[str] = ""
     
     service_type: str
-    problem_desc: str
+    problem_desc: Optional[str] = ""
     
     service_rate: float
     parts_cost: Optional[float] = 0.0

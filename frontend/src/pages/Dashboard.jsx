@@ -13,7 +13,10 @@ export default function Dashboard() {
         repairs_completed_today: 0,
         total_income_today: 0,
         delivered_today: 0,
-        pending_jobs: 0
+        pending_jobs: 0,
+        monthly_profit: 0,
+        total_profit: 0,
+        today_profit: 0
     });
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(true);
@@ -141,13 +144,18 @@ export default function Dashboard() {
                     <h3 style={{ margin: 0, fontSize: '1.75rem', color: 'white' }}>{stats.pending_jobs || 0}</h3>
                 </div>
 
-                {/* 4. Total Income Today */}
+                {/* 4. Total Income / Profit Today */}
                 <div style={{ padding: '16px 20px', borderRadius: '16px', background: 'rgba(239, 68, 68, 0.04)', border: '1px solid var(--border)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                        <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Income Collected Today</span>
+                        <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Income & Profit Today</span>
                         <DollarSign size={18} color="var(--primary)" />
                     </div>
-                    <h3 style={{ margin: 0, fontSize: '1.75rem', color: 'white' }}>{currencySymbol}{(stats.total_income_today || 0).toFixed(2)}</h3>
+                    <h3 style={{ margin: 0, fontSize: '1.45rem', color: 'white', fontWeight: 700 }}>
+                        Inc: {currencySymbol}{(stats.total_income_today || 0).toFixed(2)}
+                    </h3>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '6px', fontSize: '0.9rem', color: 'var(--success)' }}>
+                        <span style={{ fontWeight: 600 }}>Prof: {currencySymbol}{(stats.today_profit || 0).toFixed(2)}</span>
+                    </div>
                 </div>
             </div>
 
@@ -172,10 +180,13 @@ export default function Dashboard() {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         <div>
-                            <p style={{ margin: '0 0 8px 0', color: 'var(--text-secondary)', fontWeight: 600, fontSize: '0.85rem', textTransform: 'uppercase' }}>Monthly Income (Paid)</p>
-                            <h2 style={{ margin: 0, fontSize: '2.2rem', color: 'var(--text-primary)' }}>
-                                {currencySymbol}{(stats.monthly_income || 0).toFixed(2)}
+                            <p style={{ margin: '0 0 8px 0', color: 'var(--text-secondary)', fontWeight: 600, fontSize: '0.85rem', textTransform: 'uppercase' }}>Monthly Performance</p>
+                            <h2 style={{ margin: 0, fontSize: '1.75rem', color: 'var(--text-primary)', fontWeight: 700 }}>
+                                Inc: {currencySymbol}{(stats.monthly_income || 0).toFixed(2)}
                             </h2>
+                            <h3 style={{ margin: '6px 0 0 0', fontSize: '1.3rem', color: 'var(--success)', fontWeight: 700 }}>
+                                Prof: {currencySymbol}{(stats.monthly_profit || 0).toFixed(2)}
+                            </h3>
                         </div>
                         <div className="widget-icon-box" style={{ background: 'linear-gradient(135deg, #10b981, #059669)' }}>
                             <TrendingUp size={24} />
@@ -231,10 +242,13 @@ export default function Dashboard() {
                 >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         <div>
-                            <p style={{ margin: '0 0 8px 0', color: 'var(--text-secondary)', fontWeight: 600, fontSize: '0.85rem', textTransform: 'uppercase' }}>Lifetime Gross Revenue</p>
-                            <h2 style={{ margin: 0, fontSize: '2.2rem', color: 'var(--text-primary)' }}>
-                                {currencySymbol}{(stats.total_income || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                            <p style={{ margin: '0 0 8px 0', color: 'var(--text-secondary)', fontWeight: 600, fontSize: '0.85rem', textTransform: 'uppercase' }}>Lifetime Performance</p>
+                            <h2 style={{ margin: 0, fontSize: '1.75rem', color: 'var(--text-primary)', fontWeight: 700 }}>
+                                Rev: {currencySymbol}{(stats.total_income || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                             </h2>
+                            <h3 style={{ margin: '6px 0 0 0', fontSize: '1.3rem', color: 'var(--success)', fontWeight: 700 }}>
+                                Prof: {currencySymbol}{(stats.total_profit || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                            </h3>
                         </div>
                         <div className="widget-icon-box" style={{ background: 'linear-gradient(135deg, #dc2626, #991b1b)' }}>
                             <DollarSign size={24} />

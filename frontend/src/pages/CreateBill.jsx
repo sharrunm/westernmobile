@@ -159,12 +159,6 @@ export default function CreateBill() {
                         </select>
                     </div>
                 </div>
-                <div style={{ marginBottom: '16px' }}>
-                    <div className="input-group">
-                        <label>Problem Description / Notes *</label>
-                        <textarea required name="problem_desc" value={formData.problem_desc} onChange={handleChange} className="input-field" rows={3} placeholder="Describe the physical condition of the phone and the problem details..."></textarea>
-                    </div>
-                </div>
 
                 <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '32px 0' }} />
 
