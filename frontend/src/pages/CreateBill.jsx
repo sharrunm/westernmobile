@@ -79,7 +79,7 @@ export default function CreateBill() {
                 <p style={{ color: 'var(--text-secondary)' }}>Log device details, repair issues, and set expectations for dynamic service tracking.</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="glass-panel">
+            <form onSubmit={handleSubmit} className="glass-panel" autoComplete="off">
                 {/* Section 1: Customer Details */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px', color: 'var(--primary)' }}>
                     <User size={24} /> <h3>Customer Details</h3>
@@ -87,19 +87,19 @@ export default function CreateBill() {
                 <div className="grid-2" style={{ marginBottom: '16px' }}>
                     <div className="input-group">
                         <label>Full Name *</label>
-                        <input required name="customer_name" value={formData.customer_name} onChange={handleChange} className="input-field" placeholder="John Doe" />
+                        <input required name="customer_name" value={formData.customer_name} onChange={handleChange} className="input-field" placeholder="John Doe" autoComplete="off" />
                     </div>
                     <div className="input-group">
                         <label>Phone Number *</label>
-                        <input required name="customer_phone" value={formData.customer_phone} onChange={handleChange} className="input-field" placeholder="+1 234 567 8900" />
+                        <input required name="customer_phone" value={formData.customer_phone} onChange={handleChange} className="input-field" placeholder="+1 234 567 8900" autoComplete="off" />
                     </div>
                     <div className="input-group">
                         <label>Email Address</label>
-                        <input type="email" name="customer_email" value={formData.customer_email} onChange={handleChange} className="input-field" placeholder="john@example.com" />
+                        <input type="email" name="customer_email" value={formData.customer_email} onChange={handleChange} className="input-field" placeholder="john@example.com" autoComplete="off" />
                     </div>
                     <div className="input-group">
                         <label>Address</label>
-                        <input name="customer_address" value={formData.customer_address} onChange={handleChange} className="input-field" placeholder="123 Main St, City" />
+                        <input name="customer_address" value={formData.customer_address} onChange={handleChange} className="input-field" placeholder="123 Main St, City" autoComplete="off" />
                     </div>
                 </div>
 
@@ -112,15 +112,15 @@ export default function CreateBill() {
                 <div className="grid-3" style={{ marginBottom: '16px' }}>
                     <div className="input-group">
                         <label>Brand *</label>
-                        <input required name="mobile_brand" value={formData.mobile_brand} onChange={handleChange} className="input-field" placeholder="e.g. Apple, Samsung" />
+                        <input required name="mobile_brand" value={formData.mobile_brand} onChange={handleChange} className="input-field" placeholder="e.g. Apple, Samsung" autoComplete="off" />
                     </div>
                     <div className="input-group">
                         <label>Model *</label>
-                        <input required name="mobile_model" value={formData.mobile_model} onChange={handleChange} className="input-field" placeholder="e.g. iPhone 13 Pro" />
+                        <input required name="mobile_model" value={formData.mobile_model} onChange={handleChange} className="input-field" placeholder="e.g. iPhone 13 Pro" autoComplete="off" />
                     </div>
                     <div className="input-group">
                         <label>IMEI / Serial Number *</label>
-                        <input required name="imei" value={formData.imei} onChange={handleChange} className="input-field" placeholder="15-digit number or S/N" />
+                        <input required name="imei" value={formData.imei} onChange={handleChange} className="input-field" placeholder="15-digit number or S/N" autoComplete="off" />
                     </div>
                 </div>
 
@@ -169,12 +169,12 @@ export default function CreateBill() {
                 <div className="grid-2" style={{ marginBottom: '16px' }}>
                     <div className="input-group">
                         <label>Expected Delivery Date *</label>
-                        <input required type="date" name="expected_delivery" value={formData.expected_delivery} onChange={handleChange} className="input-field" />
+                        <input required type="date" name="expected_delivery" value={formData.expected_delivery} onChange={handleChange} className="input-field" autoComplete="off" />
                     </div>
                     <div className="input-group">
                         <label>Repair Service Warranty (Days) *</label>
                         <div style={{ position: 'relative' }}>
-                            <input required type="number" min="0" name="warranty_days" value={formData.warranty_days} onChange={handleChange} className="input-field" placeholder="30" />
+                            <input required type="number" min="0" name="warranty_days" value={formData.warranty_days} onChange={handleChange} className="input-field" placeholder="30" autoComplete="off" />
                             <ShieldCheck size={20} style={{ position: 'absolute', right: '12px', top: '12px', color: 'var(--success)' }} />
                         </div>
                     </div>
@@ -189,15 +189,15 @@ export default function CreateBill() {
                 <div className="grid-3">
                     <div className="input-group">
                         <label>Labor / Service Charge ({currencySymbol}) *</label>
-                        <input required type="number" step="0.01" min="0" name="service_rate" value={formData.service_rate} onChange={handleChange} className="input-field" placeholder="0.00" />
+                        <input required type="number" step="0.01" min="0" name="service_rate" value={formData.service_rate} onChange={handleChange} className="input-field" placeholder="0.00" autoComplete="off" />
                     </div>
                     <div className="input-group">
                         <label>Spare Parts Cost ({currencySymbol})</label>
-                        <input type="number" step="0.01" min="0" name="parts_cost" value={formData.parts_cost} onChange={handleChange} className="input-field" placeholder="0.00" />
+                        <input type="number" step="0.01" min="0" name="parts_cost" value={formData.parts_cost} onChange={handleChange} className="input-field" placeholder="0.00" autoComplete="off" />
                     </div>
                     <div className="input-group">
                         <label>Tax Rate (%)</label>
-                        <input type="number" step="0.01" min="0" name="tax_rate" value={formData.tax_rate} onChange={handleChange} className="input-field" placeholder="0" />
+                        <input type="number" step="0.01" min="0" name="tax_rate" value={formData.tax_rate} onChange={handleChange} className="input-field" placeholder="0" autoComplete="off" />
                     </div>
                 </div>
 
